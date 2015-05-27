@@ -3,17 +3,17 @@ require_once 'inc/htmlhead.inc';
 require_once 'inc/Query.class.php';
 
 #Query for CPUs data
-$cpusql = "SELECT cpu_id, cpu_lic, cpu_sn, cpu_ram, cpu_hd, cpu_brand, cpu_model, cpu_addedDate FROM invt_cpu ORDER BY cpu_addedDate DESC;";
+$cpusql = "SELECT cpu_id, cpu_lic, cpu_sn, cpu_ram, cpu_hd, cpu_brand, cpu_model, cpu_addedDate FROM inventario_cpu ORDER BY cpu_addedDate DESC;";
 $cpuQ = new Query($cpusql);
 $cpusql = $cpuQ->query_array_assoc();
 
 #Query for Brand
-$brandsql = "SELECT brand_id, brand_name FROM invt_brands ORDER BY brand_name ASC;";
+$brandsql = "SELECT brand_id, brand_name FROM inventario_brands ORDER BY brand_name ASC;";
 $brandQ = new Query($brandsql);
 $brandsql = $brandQ->query_array_assoc();
 
 /*#Query for model
-$modelsql = "SELECT model_name FROM invt_models ORDER BY model_name ASC;";
+$modelsql = "SELECT model_name FROM inventario_models ORDER BY model_name ASC;";
 $modelQ = new Query($modelsql);
 $modelsql = $modelQ->query_array_assoc();*/
 ?>
@@ -116,6 +116,7 @@ $modelsql = $modelQ->query_array_assoc();*/
                     <div class="form-group">
                         <label for="model">Model</label>
                         <select class="form-control" name="model" id="model">
+                            <option></option>
                         </select>
                     </div>
                 </form>

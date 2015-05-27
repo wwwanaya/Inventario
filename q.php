@@ -7,22 +7,21 @@ switch ($_GET['type']) {
 		foreach ($_GET as $key => $value) {
 			$$key = $value;
 		}
-		$modelsQuery = "SELECT invt_models.model_name, invt_brands.brand_name
-						FROM invt_models INNER JOIN invt_brands
-						ON invt_models.model_brand = invt_brands.brand_id
-						WHERE invt_brands.brand_id = $brand;";
+		$modelsQuery = "SELECT inventario_models.model_name, inventario_brands.brand_name
+						FROM inventario_models INNER JOIN inventario_brands
+						ON inventario_models.model_brand = inventario_brands.brand_id
+						WHERE inventario_brands.brand_id = $brand;";
 		$Query = new Query($modelsQuery);
 		$modelsQuery = $Query->query_array_assoc();
-		var_dump($modelsQuery);
 		echo json_encode($modelsQuery);
 		break;
 	
 	default:
 		# code...
-	$modelsQuery = "SELECT invt_models.model_name, invt_brands.brand_name
-						FROM invt_models INNER JOIN invt_brands
-						ON invt_models.model_brand = invt_brands.brand_id
-						WHERE invt_brands.brand_id = 1;";
+	$modelsQuery = "SELECT inventario_models.model_name, inventario_brands.brand_name
+						FROM inventario_models INNER JOIN inventario_brands
+						ON inventario_models.model_brand = inventario_brands.brand_id
+						WHERE inventario_brands.brand_id = 1;";
 		$Query = new Query($modelsQuery);
 		$modelsQuery = $Query->query_array_assoc();
 		var_dump($modelsQuery);

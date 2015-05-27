@@ -14,7 +14,7 @@ class Fck
     private static $pass = "Bug.$%10";
     private static $db;
     protected $con;
-    private $dbname = "invt";
+    private $dbname = "inventario";
 
     # Abrir conexion
 

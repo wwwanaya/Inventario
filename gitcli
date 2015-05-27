@@ -1,0 +1,14 @@
+Database
+mysqldump.exe -u root -pBug.$%10 --skip-extended-insert invt > C:\wamp\www\Inventario\Inventario.sql
+mysql.exe -u root -pBug.$%10 inventario < \wamp\www\Inventario\Inventario.sql
+
+echo # Inventario >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/wwwanaya/Inventario.git
+git push -u origin master
+
+git remote add origin https://github.com/wwwanaya/Inventario.git
+git push -u origin master
+
