@@ -105,6 +105,7 @@ $modelsql = $modelQ->query_array_assoc();*/
                     <div class="form-group">
                         <label for="brand">Brand</label>
                         <select class="form-control" name="brand" id="brand">
+                            <option value="0"></option>
                             <?php 
                             # Print brands names
                             for ($i=0; $i < count($brandsql); $i++) { 
@@ -116,14 +117,14 @@ $modelsql = $modelQ->query_array_assoc();*/
                     <div class="form-group">
                         <label for="model">Model</label>
                         <select class="form-control" name="model" id="model">
-                            <option></option>
+                            <!-- Here I put the data with JS, NESTED MODELS TO BRANDS -->
                         </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" id="sbmt">Save changes</button>
             </div>
         </div>
     </div>
@@ -140,19 +141,40 @@ $(document).ready(function(){
 
     // Listening when the user changes the brand option.
     $('#brand').change(function(e){ 
+        $('#model').html('');
         // .getJSON parse from the file q.php, sending the values {type: 1, brand: this.value} which contains the value of the brand.
         $.getJSON("q.php", {type: 1, brand: this.value})
         .done(function(e){
             var json_data = e;
-            console.log(json_data);
             for (var i = 0; i < json_data.length; i++) {
-                console.log(json_data[i]['model_name']);
-                $('#model').html('<option>' + json_data[i]['model_name'] +'</option>');
+                $('#model').append('<option value="' + json_data[i]['model_id'] + '">' + json_data[i]['model_name'] +'</option>');
             };
         });
     });
     //////////////////////////////
     /* /NESTED MODELS TO BRANDS */
+    //////////////////////////////
+
+    /////////////////////////////
+    /* POST DATA FROM ADD +1 */
+    /////////////////////////////
+
+    // Listening when the user changes the brand option.
+    $('#sbmt').click(function(e){
+        e.preventDefault();
+        console.log('Se preventDefault ok');
+        var data;
+        var inputCount = document.getElementsByTagName('input').length;
+        console.log(inputCount);
+        /* Want I have to make here... Is:
+        I have to count the inputs, and get these values and push it to the array...
+        i.e. name of input = value of input
+        then I sent it to php and simple as that.
+        and remember to put data-dismiss="modal" to hide the modal before click save.
+        */
+    });
+    //////////////////////////////
+    /* /POST DATA FROM ADD +1 */
     //////////////////////////////
 
 });
