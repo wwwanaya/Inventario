@@ -1,0 +1,12 @@
+OK.
+How to not use value="id"
+Store a php session and then
+create a array with the data from the server.
+i.e.
+$brands = array[brand_id = 1, brand_name = hp]
+And then, BEFORE make the SQL query I'll check if the HTML data integrity is
+what I put there...
+i.e.
+User select a brand_id = 2 but with the brand_name = HP. This will fool the server...
+So, If user selection brand id is 2, if 2 in the array exist? Yes... If the ID 2 in the array match with
+the brand_name with is HP? NO it doesn't match, ID 2 is GENERIC.
