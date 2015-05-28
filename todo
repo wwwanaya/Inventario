@@ -1,5 +1,14 @@
 27/05/2015 TODO:
-Is on index.php, line 169
+Is on index.php, line 169:
+#DONE Want I have to make here... Is:
+#DONE I have to count the inputs, and get these values and push it to the array...
+#DONE i.e. name of input = value of input
+#DONE 27/05/2015 11:46 p.m.
+
+27/05/2015 11:46 p.m. TODO:
+Is on index.php line 186:
+then I sent it to php and simple as that.
+and remember to put data-dismiss="modal" to hide the modal before click save.
 
 OK.
 How to not use value="id"

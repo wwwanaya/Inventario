@@ -69,4 +69,7 @@ else
 {
 	print 'Error.';
 }
+
+var_dump($_POST);
+
 ?>

@@ -86,20 +86,20 @@ $modelsql = $modelQ->query_array_assoc();*/
                 <form action="">
                     <div class="form-group">
                         <label for="wlicence">Licencia</label>
-                        <input type="text" class="form-control" id="wlicence" maxlength="29" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX">
+                        <input type="text" class="form-control" id="wlicence" name="wlicence" maxlength="29" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX">
                     </div>
                     <div class="form-group">
                         <label for="snumber">Serial number</label>
-                        <input type="text" class="form-control" id="snumber" maxlength="11" placeholder="ABCDEFGH">
+                        <input type="text" class="form-control" id="snumber" name="snumber" maxlength="11" placeholder="ABCDEFGH">
                     </div>
                     <label for="ram">RAM</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="ram" maxlength="3" placeholder="i.e. 2">
+                        <input type="text" class="form-control" id="ram" name="ram" maxlength="3" placeholder="i.e. 2">
                         <div class="input-group-addon">GB</div>
                     </div>
                     <label for="hd">Hard drive</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="hd" maxlength="3" placeholder="i.e. 160">
+                        <input type="text" class="form-control" id="hd" name="hd" maxlength="3" placeholder="i.e. 160">
                         <div class="input-group-addon">GB</div>
                     </div>
                     <div class="form-group">
@@ -129,7 +129,6 @@ $modelsql = $modelQ->query_array_assoc();*/
         </div>
     </div>
 </div>
-<div id="debug"></div>
 </body>
 <?php require_once 'inc/js.inc' ?>
 <script type="text/javascript">
@@ -163,12 +162,28 @@ $(document).ready(function(){
     $('#sbmt').click(function(e){
         e.preventDefault();
         console.log('Se preventDefault ok');
-        var data;
-        var inputCount = document.getElementsByTagName('input').length;
-        console.log(inputCount);
-        /* Want I have to make here... Is:
-        I have to count the inputs, and get these values and push it to the array...
-        i.e. name of input = value of input
+        var mydata = [];
+        console.log(document.getElementsByTagName("input")[0].name);
+        for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
+            mydata[document.getElementsByTagName("input")[i].name] = document.getElementsByTagName("input")[i].value;
+        };
+        for (var i = 0; i < document.getElementsByTagName('select').length; i++) {
+             mydata[document.getElementsByTagName("select")[i].name] = document.getElementsByTagName("select")[i].value;
+        };
+        console.log(mydata);
+
+        $.ajax({
+            method: "POST",
+            url: "q.php",
+            data: {'lol': JSON.stringify(mydata)},
+            contentType: 'application/json',
+            dataType: 'json'
+        })
+        .done(function( msg ) {
+            alert( "Data Saved: " + msg );
+            $('#debug').html(msg);
+        });
+        /* 
         then I sent it to php and simple as that.
         and remember to put data-dismiss="modal" to hide the modal before click save.
         */
