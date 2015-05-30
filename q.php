@@ -57,7 +57,15 @@ if (isset($_GET['type']))
 		}
 
 		break;
-	
+
+	case 2:
+		#Query for CPUs data
+		$cpusql = "SELECT cpu_id, cpu_lic, cpu_sn, cpu_ram, cpu_hd, cpu_brand, cpu_model, cpu_addedDate FROM inventario_cpu ORDER BY cpu_addedDate DESC;";
+		$cpuQ = new Query($cpusql);
+		$cpusql = $cpuQ->query_array_assoc();
+		echo json_encode($cpusql);
+		break;
+
 	default:
 		# Si no se cumplen los casos, envio un error a JS
 		print 'Error';
@@ -69,7 +77,4 @@ else
 {
 	print 'Error.';
 }
-
-var_dump($_POST);
-
 ?>

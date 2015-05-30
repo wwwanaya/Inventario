@@ -40,6 +40,7 @@ $modelsql = $modelQ->query_array_assoc();*/
                 <!-- Boton que dispara el modal -->
                 <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal">+</button>
                 <!-- /Boton que dispara el modal -->
+                <a href="bulk.php" class="btn btn-default navbar-btn">+ bulk</a>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -90,7 +91,7 @@ $modelsql = $modelQ->query_array_assoc();*/
                     </div>
                     <div class="form-group">
                         <label for="snumber">Serial number</label>
-                        <input type="text" class="form-control" id="snumber" name="snumber" maxlength="11" placeholder="ABCDEFGH">
+                        <input type="text" class="form-control" id="sn" name="sn" maxlength="11" placeholder="ABCDEFGH">
                     </div>
                     <label for="ram">RAM</label>
                     <div class="input-group">
@@ -124,7 +125,7 @@ $modelsql = $modelQ->query_array_assoc();*/
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="sbmt">Save changes</button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal" id="sbmt">Save changes</button>
             </div>
         </div>
     </div>
@@ -145,6 +146,7 @@ $(document).ready(function(){
         $.getJSON("q.php", {type: 1, brand: this.value})
         .done(function(e){
             var json_data = e;
+            //console.log(e);
             for (var i = 0; i < json_data.length; i++) {
                 $('#model').append('<option value="' + json_data[i]['model_id'] + '">' + json_data[i]['model_name'] +'</option>');
             };
@@ -160,10 +162,10 @@ $(document).ready(function(){
 
     // Listening when the user changes the brand option.
     $('#sbmt').click(function(e){
+        /*
         e.preventDefault();
         console.log('Se preventDefault ok');
         var mydata = [];
-        console.log(document.getElementsByTagName("input")[0].name);
         for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
             mydata[document.getElementsByTagName("input")[i].name] = document.getElementsByTagName("input")[i].value;
         };
@@ -171,18 +173,47 @@ $(document).ready(function(){
              mydata[document.getElementsByTagName("select")[i].name] = document.getElementsByTagName("select")[i].value;
         };
         console.log(mydata);
+        */
 
-        $.ajax({
-            method: "POST",
-            url: "q.php",
-            data: {'lol': JSON.stringify(mydata)},
-            contentType: 'application/json',
-            dataType: 'json'
-        })
-        .done(function( msg ) {
-            alert( "Data Saved: " + msg );
-            $('#debug').html(msg);
-        });
+        enviar('#wlicence', '#sn', '#ram', '#hd', '#brand', '#model');
+
+        function enviar(){
+
+            // Nombre de los inputs
+            var inputs = [];
+            // Valores de los inputs
+            var inputs_val = [];
+
+            for (var i = 0; i < arguments.length; i++) {
+                
+                // Guarda los inputs
+                inputs[i] = arguments[i];
+                // Guarda los valores
+                inputs_val[i] = $(arguments[i]).val();
+            };
+
+            /*console.log('inputs count: '+arguments.length);
+            console.log('inputs: '+inputs);
+            console.log('val inputs: '+inputs_val);*/
+
+            $.post(
+
+                'p.php',
+                {
+                    inputs: inputs,
+                    inputs_val: inputs_val
+                },
+
+                function(data) {
+                    console.log('ok');
+                    console.log(data);
+                    //$('#debug').html(data);
+                    location.reload();
+                }
+
+                );
+        };
+
         /* 
         then I sent it to php and simple as that.
         and remember to put data-dismiss="modal" to hide the modal before click save.
